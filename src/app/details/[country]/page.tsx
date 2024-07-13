@@ -5,11 +5,7 @@ import { getCountryDetails } from '@/lib/data';
 import BackButton from '@/components/BackButton';
 import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: '',
-  description: '',
-  keywords: [],
-};
+export const metadata: Metadata = {};
 
 async function DetailsPage({ params }: { params: { country: string } }) {
   const countryName = params.country.replaceAll('%20', ' ');

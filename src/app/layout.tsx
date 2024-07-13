@@ -11,7 +11,7 @@ const nunito = Nunito_Sans({
 export const metadata: Metadata = {
   title: {
     template: '%s | Rest Countries',
-    default: 'Home',
+    default: 'Home | Rest Countries',
   },
   description:
     'This is a solution to the REST Countries API with color theme switcher challenge on Frontend Mentor. Frontend Mentor challenges help you improve your coding skills by building realistic projects.',
