@@ -3,10 +3,26 @@ import Link from 'next/link';
 
 import { getCountryDetails } from '@/lib/data';
 import BackButton from '@/components/BackButton';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '',
+  description: '',
+  keywords: [],
+};
 
 async function DetailsPage({ params }: { params: { country: string } }) {
   const countryName = params.country.replaceAll('%20', ' ');
   const data = await getCountryDetails(countryName);
+
+  metadata.title = countryName;
+  metadata.description = `Relevant details about ${countryName}`;
+  metadata.keywords = [
+    data.name.common,
+    data.capital,
+    data.region,
+    data.subregion,
+  ];
 
   return (
     <main className='px-4 pb-12 max-w-screen-xl mx-auto'>

@@ -9,8 +9,14 @@ const nunito = Nunito_Sans({
 });
 
 export const metadata: Metadata = {
-  title: 'Rest Countries',
-  description: 'Rest Countries',
+  title: {
+    template: '%s | Rest Countries',
+    default: 'Home',
+  },
+  description:
+    'This is a solution to the REST Countries API with color theme switcher challenge on Frontend Mentor. Frontend Mentor challenges help you improve your coding skills by building realistic projects.',
+  metadataBase: new URL('https://rest-countries-api-two-teal.vercel.app'),
+  keywords: ['countries', 'rest api', 'frontend mentor', 'nextjs'],
 };
 
 export default function RootLayout({

@@ -39,7 +39,6 @@ function Filter() {
       <div
         className='group peer flex gap-x-2 transition justify-between rounded-lg items-center bg-dark-text-light-elements outline-none px-6 py-4 cursor-pointer shadow-md focus:ring focus:ring-dark-elements dark:focus:ring-dark-text-light-elements dark:bg-dark-elements'
         id='filter'
-        role='listbox'
         aria-label='Filter by region'
         aria-expanded={show}
         tabIndex={0}
@@ -59,7 +58,7 @@ function Filter() {
         className='absolute flex flex-col w-full max-w-60 top-16 max-h-0 py-0 overflow-hidden rounded-lg bg-dark-text-light-elements transition-all shadow-md z-10 dark:bg-dark-elements peer-aria-expanded:max-h-60 peer-aria-expanded:py-4'
       >
         {regions.map((region) => (
-          <li className='flex flex-col' key={region}>
+          <li key={region} className='flex flex-col'>
             <button
               onClick={() => handleChangeRegion(region)}
               className='flex justify-start py-1 px-6 cursor-pointer focus:ring-0 focus:bg-light-background dark:focus:bg-dark-background hover:bg-light-background dark:hover:bg-dark-background'
