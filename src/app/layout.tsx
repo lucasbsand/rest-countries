@@ -3,7 +3,7 @@ import { Nunito_Sans } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header';
 
-export const nunito = Nunito_Sans({
+const nunito = Nunito_Sans({
   weight: ['300', '600', '800'],
   subsets: ['latin'],
 });
