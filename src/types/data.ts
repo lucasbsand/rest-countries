@@ -40,4 +40,8 @@ export interface Data {
   flags: Flags;
   currencies: Currencies;
   languages: Languages;
+  nativeName: string[];
+  languagesName: string[];
+  currenciesName: string[];
+  bordersName: string[];
 }
