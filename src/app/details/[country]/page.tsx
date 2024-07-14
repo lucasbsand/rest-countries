@@ -80,7 +80,7 @@ async function DetailsPage({ params }: { params: { country: string } }) {
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <h3>Border Countries:</h3>
-            {data.bordersName ? (
+            {data.bordersName && data.bordersName.length > 0 ? (
               data.bordersName.map((border) => (
                 <Link
                   key={border}

@@ -22,29 +22,23 @@ export async function getCountriesPage(
   search: string,
   region: string,
 ) {
-  try {
-    const countries = await getAllCountries();
-    if (countries) {
-      const filteredCountries = countries.filter((country) => {
-        const regex = new RegExp(search, "i");
-        const nameMatches = !search || regex.test(country.name.common);
-        const regionMateches = !region || country.region === region;
-        return nameMatches && regionMateches;
-      });
-      const totalPages = Math.ceil(
-        filteredCountries.length / COUNTRIES_PER_PAGE,
-      );
+  const countries = await getAllCountries();
+  if (countries) {
+    const filteredCountries = countries.filter((country) => {
+      const regex = new RegExp(search, "i");
+      const nameMatches = !search || regex.test(country.name.common);
+      const regionMateches = !region || country.region === region;
+      return nameMatches && regionMateches;
+    });
+    const totalPages = Math.ceil(filteredCountries.length / COUNTRIES_PER_PAGE);
 
-      return {
-        data: filteredCountries.slice(
-          (page - 1) * COUNTRIES_PER_PAGE,
-          page * COUNTRIES_PER_PAGE,
-        ),
-        totalPages,
-      } as { data: Data[]; totalPages: number };
-    }
-  } catch (error) {
-    console.error(error);
+    return {
+      data: filteredCountries.slice(
+        (page - 1) * COUNTRIES_PER_PAGE,
+        page * COUNTRIES_PER_PAGE,
+      ),
+      totalPages,
+    } as { data: Data[]; totalPages: number };
   }
 }
 
@@ -73,13 +67,15 @@ export async function getCountryDetails(country: string) {
     } = data[0];
 
     const nativeNameKeys = Object.keys(name.nativeName);
-    const nativeName = nativeNameKeys.map((key) => name.nativeName[key].common);
+    const nativeName = nativeNameKeys.map((nnk) => name.nativeName[nnk].common);
 
     const currenciesKeys = Object.keys(currencies);
-    const currenciesName = currenciesKeys.map((key) => currencies[key].name);
+    const currenciesName = currenciesKeys.map(
+      (isocode) => currencies[isocode].name,
+    );
 
     const languagesKeys = Object.keys(languages);
-    const languagesName = languagesKeys.map((key) => languages[key]);
+    const languagesName = languagesKeys.map((lang) => languages[lang]);
 
     const bordersName = await getBorderCountries(borders);
 
@@ -104,18 +100,15 @@ export async function getCountryDetails(country: string) {
 }
 
 async function getBorderCountries(borders: string[]) {
-  try {
-    const allCountries = await getAllCountries();
-    const allBorders = allCountries?.filter((country) => {
-      borders ? borders.some((border) => border === country.cca3) : false;
-    });
+  const allCountries = await getAllCountries();
+  const allBorders = allCountries?.filter((country) => {
+    if (borders) return borders.some((border) => border === country.cca3);
+    else false;
+  });
 
-    if (allBorders) {
-      return allBorders.map((border) => border.name.common);
-    }
-
-    return;
-  } catch (error) {
-    console.error(error);
+  if (typeof allBorders === "undefined" || allBorders.length <= 0) {
+    return undefined;
   }
+
+  return allBorders.map((border) => border.name.common);
 }
